@@ -8,6 +8,9 @@ import '@splidejs/splide/dist/css/splide.min.css'
 //styles
 import { Card, Gradient, Wrapper } from './veggie.styles'
 
+//router
+import { Link } from 'react-router-dom'
+
 const Veggie = () => {
 
   
@@ -18,7 +21,7 @@ const Veggie = () => {
   }, [])
 
   const getVeggie = async () => {
-    const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=4e3f18fbe0c64fcea715c32a8163f177&number=9&tags=vegetarian`);
+    const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=2c1a78f029bc4d43ae7f8d0162b2328e&number=16&tags=vegetarian`);
     const data = await api.json();
     console.log(data.recipes)
     setVeggie(data.recipes)
@@ -38,9 +41,11 @@ const Veggie = () => {
           return (
             <SplideSlide key={recipe.id}>
               <Card key={recipe.id}>
+                <Link to={'/recipe/' + recipe.id}>
                 <p>{recipe.title}</p>
                 <img src={recipe.image} alt={recipe.title} />
                 <Gradient/>
+                </Link>
               </Card>
             </SplideSlide>
           )
