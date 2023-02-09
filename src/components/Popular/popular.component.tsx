@@ -1,28 +1,68 @@
 import { useState, useEffect } from "react"
 
+//styles
+import { Card, Gradient, Wrapper } from "./popular.styles"
+
+//splide
+import { Splide, SplideSlide } from "@splidejs/react-splide"
+import '@splidejs/splide/dist/css/splide.min.css'
+
 export const Popular = () => {
 
   const [popular, setPopular] = useState<string[]>([])
 
   useEffect(() => {
-      getPopular()
+    getPopular()
   }, [])
 
   const getPopular = async () => {
-      const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=203254f6c49e462caa9c032a008c2fda&number=9`);
-      const data = await api.json();
-      console.log(data.recipes)
-      setPopular(data.recipes)
+    const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=203254f6c49e462caa9c032a008c2fda&number=49`);
+    const data = await api.json();
+    console.log(data.recipes)
+    setPopular(data.recipes)
   }
+
+  // const getPopular = async () => {
+
+  //   const check = localStorage.getItem('popular')
+
+  //   if(check) {
+  //     setPopular(JSON.parse(check))
+  //   } else {
+  //     const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=203254f6c49e462caa9c032a008c2fda&number=49`);
+  //     const data = await api.json();
+
+  //     localStorage.setItem('popular', JSON.stringify(data.recipes))
+  //     setPopular(data.recipes)
+  //     console.log(data.recipes)
+  //   }
+
+  // }
   
   return (
-    <div>
-      {popular.map((recipe: any) => {
-        return (
-          <div key={recipe.id}>{recipe.title}</div>
-        )
-      })}
-    </div>
+    <Wrapper>
+      <h3>Popular Picks</h3>
+
+      <Splide options={{
+        perPage: 4,
+        arrows: false,
+        pagination: false,
+        drag: 'free',
+        gap: '5rem'
+      }}>
+        {popular.map((recipe: any) => {
+          return (
+            <SplideSlide key={recipe.id}>
+              <Card key={recipe.id}>
+                <p>{recipe.title}</p>
+                <img src={recipe.image} alt={recipe.title} />
+                <Gradient/>
+              </Card>
+            </SplideSlide>
+          )
+        })}
+      </Splide>
+    </Wrapper>
   )
 }
 
