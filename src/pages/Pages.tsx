@@ -2,10 +2,10 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 //pages
-import Home from "./Home/Home"
-import { Cuisine } from "./Cuisine/Cuisine"
-import { Search } from "./Search/Search"
-import { Recipe } from "./Recipe/Recipe"
+import Home from "./Home/home.page"
+import { Cuisine } from "./Cuisine/cuisine.page"
+import { Search } from "./Search/search.page"
+import { Recipe } from "./Recipe/recipe.page"
 
 //framer motion
 import {AnimatePresence} from 'framer-motion'
